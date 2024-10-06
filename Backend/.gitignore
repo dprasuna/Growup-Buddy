@@ -1,0 +1,23 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+
+# npm
+package-lock.json
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Temporary files
+temp/
+tmp/
