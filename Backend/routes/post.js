@@ -3,7 +3,7 @@ const router = express.Router();
 const Post = require('../models/Post');
 const authMiddleware = require('../middleware/authMiddleware'); // Import auth middleware
 
-// POST /api/posts
+// POST /api/posts - Create a new post
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const post = new Post(req.body);
@@ -14,7 +14,17 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 });
 
-// GET /api/posts/:id
+// GET /api/posts - Get all posts
+router.get('/', authMiddleware, async (req, res) => {
+  try {
+    const posts = await Post.find(); // Fetch all posts
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/posts/:id - Get a post by ID
 router.get('/:id', authMiddleware, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -25,7 +35,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// PUT /api/posts/:id
+// PUT /api/posts/:id - Update a post by ID
 router.put('/:id', authMiddleware, async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -36,7 +46,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// DELETE /api/posts/:id
+// DELETE /api/posts/:id - Delete a post by ID
 router.delete('/:id', authMiddleware, async (req, res) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
