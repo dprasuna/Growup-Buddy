@@ -13,6 +13,17 @@ router.post('/', authMiddleware, async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+// GET /api/posts/recent - Get recent posts
+router.get('/recent', authMiddleware, async (req, res) => {
+  try {
+    // Fetch recent posts, sorted by creation date in descending order
+    const recentPosts = await Post.find().sort({ createdAt: -1 }).limit(10); // Limit to 10 recent posts, adjust as needed
+    res.json(recentPosts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 // GET /api/posts - Get all posts
 router.get('/', authMiddleware, async (req, res) => {

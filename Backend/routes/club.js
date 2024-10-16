@@ -14,6 +14,17 @@ router.post('/', authMiddleware, validateClub, async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+// GET /api/clubs/recent - Get recent clubs for the homepage
+router.get('/recent', authMiddleware, async (req, res) => {
+  try {
+    // Fetch recent clubs, sorted by creation date in descending order
+    const recentClubs = await Club.find().sort({ createdAt: -1 }).limit(10); // Limit to the 10 most recent clubs
+    res.json(recentClubs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 // GET /api/clubs - Get details of all clubs
 router.get('/', authMiddleware, async (req, res) => {
