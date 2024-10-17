@@ -26,6 +26,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Import routes
+const storyRoutes = require('./routes/story');
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 const commentRoutes = require('./routes/comment');
@@ -45,6 +46,8 @@ const skillsRoutes = require('./routes/skills');
 const testimonialRoutes = require('./routes/testimonial');
 const workExperienceRoutes = require('./routes/work-experience');
 const companyWorkedRoutes = require('./routes/companyWorked');
+
+app.use('/api/stories', storyRoutes);
 
 // Add the signup and login routes
 const signupRoutes = require('./routes/signup'); // Adjust path as necessary
